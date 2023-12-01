@@ -24,16 +24,22 @@ window.configure(bg="#121212")
 Primary-Color: White
 Accent: #658dff
 
+Pencil icon by Yurlick on Freepik with: https://www.freepik.com/free-vector/writting-pencil-design_850418.htm#query=pencil&position=0&from_view=search&track=sph&uuid=68310c30-5077-422f-a58e-82c5201349e4"
+Pin icon by d3images on Freepik with: https://www.freepik.com/free-photo/red-drawing-pin_953446.htm#query=push%20pin%20icon&position=16&from_view=search&track=ais&uuid=9a2b7bee-8a4b-425c-96da-ead14592afe6"
+Wrench image by stockking on Freepik with: "https://www.freepik.com/free-photo/top-view-open-end-wrench-wooden-background_9522472.htm#page=2&query=wrench%20clipart&position=11&from_view=search&track=ais&uuid=93570992-2fe8-41b0-ad33-4d31a91d73e0"
 Buttons created with: https://reviewgrower.com/button-and-badge-generator/
 Background gradient created with: https://medibangpaint.com/en/
 I found out how to load images from a folder in the same directory as the .py file with: https://stackoverflow.com/questions/52175943/loading-an-image-from-a-folder-that-is-in-the-same-folder-as-the-program
 '''
+window.iconbitmap("Assets/icon.ico") #Pencil icon
 backgroundImg = PhotoImage(file="Assets/background.png") #Subtle background
     #Main Frame Assets
 createNoteBtnImg = PhotoImage(file="Assets/createANoteButton.png")  #Lighter shade variant of Create Note Button
 createNoteBtnImg2= PhotoImage(file="Assets/createANoteButton2.png") #Darker shade variant of Create Note Button
 pinBtnImage = PhotoImage(file="Assets/pinButton.png") #Lighter shade variant of the Pin Button
 pinBtnImage2 = PhotoImage(file="Assets/pinButton2.png") #Darker shade variant of the Pin Button
+editBtnImage = PhotoImage(file="Assets/editButton.png")
+editBtnImage2 = PhotoImage(file="Assets/editButton2.png")
     #Creation Frame Assets
 saveBtnImg = PhotoImage(file="Assets/saveButton.png") #Lighter shade variant of Save Buton
 saveBtnImg2 = PhotoImage(file="Assets/saveButton2.png") #Darker shade variant of Save Button
@@ -54,6 +60,7 @@ confirmationBtnImg6 = PhotoImage(file="Assets/confirmationButton6.png") #Darker 
 #Functions ----------------------------------------------------------------------------------
 '''
 I learned cursor events with: https://stackoverflow.com/questions/49888623/tkinter-hovering-over-button-color-change
+I learned about a cget method with: https://stackoverflow.com/questions/50013449/obtaining-the-state-of-a-tkinter-entry-widget
 '''
 modifiedColor = "White" #Default color is "White"
 currentFont = "Arial Unicode MS"
@@ -89,6 +96,48 @@ def onConfirmationBtnEnter3(event): #When the mouse cursor hovers over the butto
 def onConfirmationBtnLeave3(event): #When the mouse cursor stops hovering over the button, make it a lighter shade
     confirmationBtn3.config(image=confirmationBtnImg5)
 
+def onEditBtnEnter(event): #When the mouse cursor hovers over the button, make it a darker shade
+    editButton.config(image=editBtnImage2)
+
+def onEditBtnLeave(event): #When the mouse cursor stops hovering over the button, make it a lighter shade
+    editButton.config(image=editBtnImage)
+
+def onEditBtnEnter2(event): #When the mouse cursor hovers over the button, make it a darker shade
+    editButton2.config(image=editBtnImage2)
+
+def onEditBtnLeave2(event): #When the mouse cursor stops hovering over the button, make it a lighter shade
+    editButton2.config(image=editBtnImage)
+
+def onEditBtnEnter3(event): #When the mouse cursor hovers over the button, make it a darker shade
+    editButton3.config(image=editBtnImage2)
+
+def onEditBtnLeave3(event): #When the mouse cursor stops hovering over the button, make it a lighter shade
+    editButton3.config(image=editBtnImage)
+
+def editContent(): #Make the text widget in the saved note editable or read-only as toggles
+    if savedNote1ContentText.cget("state") == "disabled":
+         savedNote1ContentText.config(state="normal")
+         savedNote1Frame.config(relief="sunken")
+    else:
+        savedNote1ContentText.config(state="disabled")
+        savedNote1Frame.config(relief="raised")
+
+def editContent2(): #Make the text widget in the saved note editable or read-only as toggles
+    if savedNote2ContentText.cget("state") == "disabled":
+         savedNote2ContentText.config(state="normal")
+         savedNote2Frame.config(relief="sunken")
+    else:
+        savedNote2ContentText.config(state="disabled")
+        savedNote2Frame.config(relief="raised")
+
+def editContent3(): #Make the text widget in the saved note editable or read-only as toggles
+    if savedNote3ContentText.cget("state") == "disabled":
+         savedNote3ContentText.config(state="normal")
+         savedNote3Frame.config(relief="sunken")
+    else:
+        savedNote3ContentText.config(state="disabled")
+        savedNote3Frame.config(relief="raised")
+
 pinned = False
 def pinWindow(): #An option for the user to pin the application's window on top
     global pinned
@@ -116,14 +165,14 @@ def pinWindow2(): #An option for the user to pin the application's window on top
         pinButton2.config(image=pinBtnImage)
         window.update()
 
-def updatePin():
+def updatePin(): #Make the pin remain pinned or unpinned depending on its status from the previous frame
     global pinned
     if not pinned:
         pinButton.config(image=pinBtnImage)
     else:
         pinButton.config(image=pinBtnImage2)
 
-def updatePin2():
+def updatePin2(): #Make the pin remain pinned or unpinned depending on its status from the previous frame
     global pinned
     if not pinned:
         pinButton2.config(image=pinBtnImage)
@@ -321,7 +370,7 @@ createNoteBtn.bind("<Leave>", onCreateNoteBtnLeave)
 '''
 I learned about attaching scrollbars to text widgets with: https://www.tutorialspoint.com/how-to-attach-a-vertical-scrollbar-in-tkinter-text-widget
 '''
-savedNote1Frame = Frame(mainFrame, bg="White", highlightbackground="Black", highlightthickness=1)
+savedNote1Frame = Frame(mainFrame, bg="White", highlightbackground="Black", highlightthickness=1, relief="raised", bd=2)
 savedNote1Frame.place(x=15,y=70, height=150, width=150)
 savedNote1TitleLabel = Label(savedNote1Frame,
                              bg="White",
@@ -346,8 +395,17 @@ savedNote1ContentText = Text(savedNote1ContentFrame,
 savedNote1ContentText.place(x=0,y=0,width=110,height=105)
 savedNote1TextScrollbar.config(command=savedNote1ContentText.yview)
 
+editButton = Button(savedNote1Frame,
+                    bg="White",
+                    image=editBtnImage,
+                    bd=0,
+                    command=editContent)
+editButton.place(x=125,y=5)
+editButton.bind("<Enter>", onEditBtnEnter)
+editButton.bind("<Leave>", onEditBtnLeave)
+
     #Saved Note 2
-savedNote2Frame = Frame(mainFrame, bg="White", highlightbackground="Black", highlightthickness=1)
+savedNote2Frame = Frame(mainFrame, bg="White", highlightbackground="Black", highlightthickness=1, relief="raised", bd=2)
 savedNote2Frame.place(x=185,y=70, height=150, width=150)
 savedNote2TitleLabel = Label(savedNote2Frame,
                              bg="White",
@@ -372,8 +430,17 @@ savedNote2ContentText = Text(savedNote2ContentFrame,
 savedNote2ContentText.place(x=0,y=0,width=110,height=105)
 savedNote2TextScrollbar.config(command=savedNote2ContentText.yview)
 
+editButton2 = Button(savedNote2Frame,
+                    bg="White",
+                    image=editBtnImage,
+                    bd=0,
+                    command=editContent2)
+editButton2.place(x=125,y=5)
+editButton2.bind("<Enter>", onEditBtnEnter2)
+editButton2.bind("<Leave>", onEditBtnLeave2)
+
     #Saved Note 3
-savedNote3Frame = Frame(mainFrame, bg="White", highlightbackground="Black", highlightthickness=1)
+savedNote3Frame = Frame(mainFrame, bg="White", highlightbackground="Black", highlightthickness=1, relief="raised", bd=2)
 savedNote3Frame.place(x=360,y=70, height=150, width=150)
 savedNote3TitleLabel = Label(savedNote3Frame,
                              bg="White",
@@ -397,6 +464,15 @@ savedNote3ContentText = Text(savedNote3ContentFrame,
                                state="disabled")
 savedNote3ContentText.place(x=0,y=0,width=110,height=105)
 savedNote3TextScrollbar.config(command=savedNote3ContentText.yview)
+
+editButton3 = Button(savedNote3Frame,
+                    bg="White",
+                    image=editBtnImage,
+                    bd=0,
+                    command=editContent3)
+editButton3.place(x=125,y=5)
+editButton3.bind("<Enter>", onEditBtnEnter3)
+editButton3.bind("<Leave>", onEditBtnLeave3)
 
 #Creation Frame -------------------------------------------------------------------------------
 creationFrame = Frame(window, bg="White")
