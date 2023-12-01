@@ -31,7 +31,7 @@ Accent: #658dff
 
 Pencil icon by Yurlick on Freepik with: https://www.freepik.com/free-vector/writting-pencil-design_850418.htm#query=pencil&position=0&from_view=search&track=sph&uuid=68310c30-5077-422f-a58e-82c5201349e4
 Pin icon by d3images on Freepik with: https://www.freepik.com/free-photo/red-drawing-pin_953446.htm#query=push%20pin%20icon&position=16&from_view=search&track=ais&uuid=9a2b7bee-8a4b-425c-96da-ead14592afe6
-Wrench image by stockking on Freepik with: "https://www.freepik.com/free-photo/top-view-open-end-wrench-wooden-background_9522472.htm#page=2&query=wrench%20clipart&position=11&from_view=search&track=ais&uuid=93570992-2fe8-41b0-ad33-4d31a91d73e0
+Wrench image by stockking on Freepik with: https://www.freepik.com/free-photo/top-view-open-end-wrench-wooden-background_9522472.htm#page=2&query=wrench%20clipart&position=11&from_view=search&track=ais&uuid=93570992-2fe8-41b0-ad33-4d31a91d73e0
 Buttons created with: https://reviewgrower.com/button-and-badge-generator/
 Background gradient created with: https://medibangpaint.com/en/
 I found out how to load images from a folder in the same directory as the .py file with: https://stackoverflow.com/questions/52175943/loading-an-image-from-a-folder-that-is-in-the-same-folder-as-the-program
