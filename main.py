@@ -16,8 +16,6 @@ I learned how to use custom colors with: https://www.tutorialspoint.com/python/t
 window = Tk()
 window.geometry("600x240")
 window.resizable(0,0) #Make the application window not resizable
-window.attributes("-topmost",True)
-window.update()
 window.title("Note-Taker")
 window.configure(bg="#121212")
 
@@ -58,6 +56,7 @@ confirmationBtnImg6 = PhotoImage(file="Assets/confirmationButton6.png") #Darker 
 I learned cursor events with: https://stackoverflow.com/questions/49888623/tkinter-hovering-over-button-color-change
 '''
 modifiedColor = "White" #Default color is "White"
+currentFont = "Arial Unicode MS"
 
 def onCreateNoteBtnEnter(event): #When the mouse cursor hovers over the button, make it a darker shade
     createNoteBtn.config(image=createNoteBtnImg2)
@@ -90,15 +89,51 @@ def onConfirmationBtnEnter3(event): #When the mouse cursor hovers over the butto
 def onConfirmationBtnLeave3(event): #When the mouse cursor stops hovering over the button, make it a lighter shade
     confirmationBtn3.config(image=confirmationBtnImg5)
 
-def onPinButtonEnter(event):
-    pinButton.config(image=pinBtnImage2)
+pinned = False
+def pinWindow(): #An option for the user to pin the application's window on top
+    global pinned
+    if not pinned:
+        window.attributes("-topmost",True)
+        window.update()
+        pinButton.config(image=pinBtnImage2)
+        pinned = True
+    else:
+        pinned = False
+        window.attributes("-topmost",False)
+        pinButton.config(image=pinBtnImage)
+        window.update()
 
-def onPinButtonLeave(event):
-    pinButton.config(image=pinBtnImage)
+def pinWindow2(): #An option for the user to pin the application's window on top
+    global pinned
+    if not pinned:
+        window.attributes("-topmost",True)
+        window.update()
+        pinButton2.config(image=pinBtnImage2)
+        pinned = True
+    else:
+        pinned = False
+        window.attributes("-topmost",False)
+        pinButton2.config(image=pinBtnImage)
+        window.update()
+
+def updatePin():
+    global pinned
+    if not pinned:
+        pinButton.config(image=pinBtnImage)
+    else:
+        pinButton.config(image=pinBtnImage2)
+
+def updatePin2():
+    global pinned
+    if not pinned:
+        pinButton2.config(image=pinBtnImage)
+    else:
+        pinButton2.config(image=pinBtnImage2)
 
 def displayCreationFrame(): #Change to the Note Creation Frame when the button is clicked
     window.geometry("600x400")
     creationFrame.pack(side="top", fill="both", expand=True)
+    updatePin2()
     mainFrame.pack_forget()
 
 def enterSave(): #Change to the Main Frame when the button is clicked
@@ -111,6 +146,7 @@ I learned about how to make a text widget read-only with: https://stackoverflow.
 def saveToOne(): #Overwrites the  first note in the main frame to the note from the customization frame
     window.geometry("600x240")
     mainFrame.pack(side="top", fill="both", expand=True)
+    updatePin()
     confirmationFrame.place_forget()
     creationFrame.pack_forget()
 
@@ -135,6 +171,7 @@ def saveToOne(): #Overwrites the  first note in the main frame to the note from 
 def saveToTwo(): #A copy of the saveToOne function but for Saved Note #2
     window.geometry("600x240")
     mainFrame.pack(side="top", fill="both", expand=True)
+    updatePin()
     confirmationFrame.place_forget()
     creationFrame.pack_forget()
 
@@ -159,6 +196,7 @@ def saveToTwo(): #A copy of the saveToOne function but for Saved Note #2
 def saveToThree(): #A copy of the saveToOne function but for Saved Note #3
     window.geometry("600x240")
     mainFrame.pack(side="top", fill="both", expand=True)
+    updatePin()
     confirmationFrame.place_forget()
     creationFrame.pack_forget()
 
@@ -241,13 +279,13 @@ backgroundLabel.place(relheight=1,relwidth=1)
 accentLabel = Label(mainFrame, bg="#658dff")
 accentLabel.place(x=0,y=0,relwidth=1,height=3)
 
+pinned = False
 pinButton = Button(mainFrame,
                    bg="White",
-                   image=pinBtnImage,
-                   bd=0)
+                   bd=0,
+                   command=pinWindow)
 pinButton.place(x=13,y=8)
-pinButton.bind("<Enter>", onPinButtonEnter)
-pinButton.bind("<Leave>", onPinButtonLeave)
+updatePin()
 
     #Note Count Label
 noteCountLabel = Label(mainFrame, 
@@ -366,6 +404,13 @@ backgroundLabel2 = Label(creationFrame,image=backgroundImg)
 backgroundLabel2.place(relheight=1,relwidth=1)
 accentLabel2 = Label(creationFrame, bg="#658dff")
 accentLabel2.place(x=0,y=0,relwidth=1,height=3)
+
+pinButton2 = Button(creationFrame,
+                   bg="White",
+                   bd=0,
+                   command=pinWindow2)
+
+pinButton2.place(x=13,y=8)
 
     #Note Frame
 noteFrame = Frame(creationFrame, bg="White", highlightbackground="#658dff", highlightthickness=1)
