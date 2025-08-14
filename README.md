@@ -1,5 +1,5 @@
-# Note-Taker
-Welcome to **Note-Taker**, a user-friendly digital sticky notes application built with Python Tkinter! This GUI project focuses on enabling users, primarily students, to effortlessly create and manage convenient digital sticky notes.
+# Simple-Notes
+Welcome to **Simple-Notes**, a user-friendly digital sticky notes application built with Python Tkinter! This GUI project focuses on enabling users, primarily students, to effortlessly create and manage convenient digital sticky notes.
 
 *The 3-note limit was chosen as the most manageable approach within the developer's current skill and knowledge set.*
 
